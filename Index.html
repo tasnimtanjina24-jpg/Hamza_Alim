@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hamza Ibn Alim | Marketing Professional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f4f7ff, #eefcff, #fff6fb);
+      color: #1f2937;
+    }
+    a { text-decoration: none; color: #2563eb; }
+
+    .container { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, #0f172a, #1e3a8a, #7c3aed);
+      color: white;
+      padding: 28px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .profile-top {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .profile-top img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.25);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      margin-bottom: 14px;
+      background: white;
+    }
+
+    .profile-top h1 {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .profile-top p {
+      font-size: 13px;
+      color: #dbeafe;
+      margin-top: 8px;
+      line-height: 1.7;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .nav button {
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      background: linear-gradient(90deg, #06b6d4, #ec4899);
+      transform: translateX(3px);
+    }
+
+    .sidebar-footer {
+      margin-top: 28px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 13px;
+      color: #e0f2fe;
+      line-height: 1.7;
+    }
+
+    .main {
+      margin-left: 280px;
+      width: calc(100% - 280px);
+      padding: 30px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(255,255,255,0.65);
+      width: 100%;
+    }
+
+    .hero {
+      display: block;
+      width: 100%;
+      margin-bottom: 26px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #f3e8ff;
+      color: #2563eb;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero-text h2 {
+      font-size: 40px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .hero-text h3 {
+      font-size: 18px;
+      color: #db2777;
+      font-weight: 600;
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .hero-text p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .mini-box {
+      border-radius: 18px;
+      padding: 14px;
+      color: white;
+      font-size: 14px;
+      line-height: 1.7;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+    }
+
+    .c1 { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+    .c2 { background: linear-gradient(135deg, #d946ef, #ec4899); }
+    .c3 { background: linear-gradient(135deg, #10b981, #14b8a6); }
+    .c4 { background: linear-gradient(135deg, #f59e0b, #f97316); }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    .about-box p,
+    .item-text,
+    .timeline-item ul li {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #475569;
+    }
+
+    .timeline-item,
+    .edu-item,
+    .cert-item,
+    .community-item,
+    .contact-item {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      border-left: 6px solid #38bdf8;
+    }
+
+    .timeline-item:nth-child(2) { border-left-color: #ec4899; }
+    .timeline-item:nth-child(3) { border-left-color: #10b981; }
+    .timeline-item:nth-child(4) { border-left-color: #f59e0b; }
+    .timeline-item:nth-child(5) { border-left-color: #8b5cf6; }
+
+    .item-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .item-meta {
+      color: #7c3aed;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .timeline-item ul {
+      padding-left: 20px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .skill-card {
+      background: white;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+      text-align: center;
+      transition: 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .skill-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      color: white;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    }
+
+    .icon1 { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+    .icon2 { background: linear-gradient(135deg, #ec4899, #db2777); }
+    .icon3 { background: linear-gradient(135deg, #10b981, #14b8a6); }
+    .icon4 { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .icon5 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .icon6 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+    .icon7 { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+    .icon8 { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .icon9 { background: linear-gradient(135deg, #6366f1, #4338ca); }
+
+    .skill-card h4 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .skill-card p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #64748b;
+    }
+
+    .two-col,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1100px) {
+      .two-col,
+      .contact-grid,
+      .skills-grid,
+      .mini-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 18px;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      .two-col,
+      .contact-grid,
+      .skills-grid,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-text h2 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="profile-top">
+        <img src="Hamza.jpg" alt="Hamza Ibn Alim">
+        <h1>HAMZA IBN ALIM</h1>
+        <p>Marketing Professional</p>
+      </div>
+
+      <div class="nav">
+        <button class="nav-btn active" onclick="showPage('home', this)">🏠 Home</button>
+        <button class="nav-btn" onclick="showPage('about', this)">🙋 About</button>
+        <button class="nav-btn" onclick="showPage('experience', this)">💼 Experience</button>
+        <button class="nav-btn" onclick="showPage('education', this)">🎓 Education</button>
+        <button class="nav-btn" onclick="showPage('skills', this)">✨ Skills</button>
+        <button class="nav-btn" onclick="showPage('certifications', this)">📜 Certifications</button>
+        <button class="nav-btn" onclick="showPage('community', this)">🌍 Community</button>
+        <button class="nav-btn" onclick="showPage('contact', this)">📩 Contact</button>
+      </div>
+
+
+    </aside>
+
+    <main class="main">
+      <section id="home" class="page active">
+        <div class="hero">
+          <div class="card hero-text">
+            <div class="badge">Marketing • Branding • Activations • Digital</div>
+            <h2>Hamza Ibn Alim</h2>
+            <h3>Dynamic Marketing Professional with 8+ years of experience across FMCG, Financial Services, Consumer Durables, IT and Engineering Services</h3>
+            <p>
+              Dynamic Marketing Professional with experience in large corporates and startups across multiple industries. Strong in BTL marketing strategies such as trade marketing, events, sponsorships, consumer activations, and outdoor branding.
+            </p>
+            <p>
+              Also experienced in digital marketing tools including email campaigns, LinkedIn, social media, EDMs, and integrated brand communication to improve visibility and business outcomes.
+            </p>
+
+            <div class="mini-grid">
+              <div class="mini-box c1"><strong>Phone</strong><br>+61 435 911 737</div>
+              <div class="mini-box c2"><strong>Email</strong><br>hamza.nsu@gmail.com</div>
+              <div class="mini-box c3"><strong>Location</strong><br>Dundas Valley, NSW 2117</div>
+              <div class="mini-box c4"><strong>Current Role</strong><br>Head of Marketing</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="page">
+        <div class="card about-box">
+          <div class="section-title">About Me</div>
+          <div class="section-subtitle">Brand, activation, trade marketing, and digital communication specialist</div>
+          <p>
+            I am a marketing professional with a strong background in brand visibility, trade marketing, consumer activations, events, GTM execution, and integrated digital campaigns.
+          </p>
+          <p>
+            My experience spans planning, budgeting, production, campaign execution, agency management, stakeholder communication, and performance tracking across both traditional and digital channels.
+          </p>
+          <p>
+            I aim to contribute to organizations by combining creative marketing strategy with operational execution and measurable business impact.
+          </p>
+        </div>
+      </section>
+
+      <section id="experience" class="page">
+        <div class="section-title">Work Experience</div>
+        <div class="section-subtitle">Career progression across marketing, trade marketing, field activation, and business development</div>
+
+        <div class="timeline-item">
+          <div class="item-title">Head of Marketing</div>
+          <div class="item-meta">WaterGroup Pty Ltd | Sep 2024 - Present</div>
+          <ul>
+            <li>Update, refine and implement the marketing strategy.</li>
+            <li>Optimize marketing spend for value for money.</li>
+            <li>Track marketing initiatives and evaluate cost effectiveness.</li>
+            <li>Maintain website and social pages.</li>
+            <li>Plan and execute digital marketing campaigns including Google Ads, LinkedIn business and EDM.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-title">Assistant Manager - Marketing Communications</div>
+          <div class="item-meta">Beximco Communications Ltd | Mar 2023 - Jun 2024</div>
+          <ul>
+            <li>Planned, budgeted, produced, and executed branding items for retail visibility.</li>
+            <li>Managed activation agencies and POSM vendors.</li>
+            <li>Supervised outdoor branding and billboards nationally.</li>
+            <li>Tracked inventory of marketing production items.</li>
+            <li>Coordinated GTM planning across retail teams and managed budget reporting.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-title">Senior Executive - Trade Marketing</div>
+          <div class="item-meta">UCB Fintech Company Ltd | Nov 2021 - Mar 2023</div>
+          <ul>
+            <li>Planned and supervised POSM execution at agent points.</li>
+            <li>Managed trade marketing field team and KPIs.</li>
+            <li>Designed and supervised Trade Loyalty Programs.</li>
+            <li>Provided operational support for branding and merchant QR code rollout.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-title">Field Marketing Executive</div>
+          <div class="item-meta">Japan Tobacco International | Jul 2019 - Jul 2021</div>
+          <ul>
+            <li>Executed distribution, visibility, consumer activation, and retail incentive programs.</li>
+            <li>Supported new product launches and brand expansion.</li>
+            <li>Maintained stakeholder relationships and developed sales operations.</li>
+            <li>Trained sales force to achieve targeted KPIs.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-title">Senior Analyst - Business Development</div>
+          <div class="item-meta">Apex Data Management & IT | Nov 2017 - May 2019</div>
+          <ul>
+            <li>Developed business proposals, maintained client relationships, and closed deals.</li>
+            <li>Collaborated with cross-functional teams to deliver projects on time.</li>
+            <li>Supported vendor management and logistics.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="education" class="page">
+        <div class="section-title">Education</div>
+        <div class="section-subtitle">Academic qualifications</div>
+
+        <div class="edu-item">
+          <div class="item-title">Master of Business Administration in Marketing</div>
+          <div class="item-meta">Bangladesh University of Professionals | 2023</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="item-title">Bachelor of Science in Electronic and Electrical Engineering</div>
+          <div class="item-meta">North South University | 2017</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="item-title">Post Graduate Diploma in Business Communications</div>
+          <div class="item-meta">Bangladesh University of Professionals</div>
+        </div>
+      </section>
+
+      <section id="skills" class="page">
+        <div class="section-title">Professional Skills</div>
+        <div class="section-subtitle">Core competencies and work tools</div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon icon1">📣</div>
+            <h4>Brand Management</h4>
+            <p>Brand visibility, positioning, and communication planning.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon2">🎯</div>
+            <h4>Trade Marketing</h4>
+            <p>Retail execution, visibility, POSM, incentives, and activations.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon3">🎪</div>
+            <h4>Events & Activations</h4>
+            <p>Campaign planning, sponsorships, launch events, and field engagement.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon4">💼</div>
+            <h4>B2B Sales & Marketing</h4>
+            <p>Client relationships, proposals, and integrated marketing support.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon5">👥</div>
+            <h4>People Management</h4>
+            <p>Cross-functional coordination, agency management, and team supervision.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon6">📊</div>
+            <h4>Data & ROI Tracking</h4>
+            <p>Budget tracking, reporting, initiative evaluation, and business analysis.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon7">💻</div>
+            <h4>Digital Marketing</h4>
+            <p>Google Ads, LinkedIn Business, EDMs, website, and social media management.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon8">🛠️</div>
+            <h4>Work Tools</h4>
+            <p>CRM, Figma, Power BI, Canva, Microsoft PowerPoint, Excel, and Word.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon icon9">🤝</div>
+            <h4>Business Communication</h4>
+            <p>Stakeholder communication, presentation, and project support.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="certifications" class="page">
+        <div class="section-title">Professional Certifications</div>
+        <div class="section-subtitle">Courses and continuing development</div>
+
+        <div class="cert-item">
+          <div class="item-title">Excel Skills for Business</div>
+          <div class="item-meta">Macquarie University</div>
+        </div>
+
+        <div class="cert-item">
+          <div class="item-title">Soft Skills</div>
+          <div class="item-meta">Rochester Institute of Technology</div>
+        </div>
+
+        <div class="cert-item">
+          <div class="item-title">Analyzing and Visualizing Data with Power BI</div>
+          <div class="item-meta">Power BI Bangladesh</div>
+        </div>
+      </section>
+
+      <section id="community" class="page">
+        <div class="section-title">Community Engagement & Interests</div>
+        <div class="section-subtitle">Volunteer roles, communities, and interests</div>
+
+        <div class="community-item">
+          <div class="item-title">Moderator</div>
+          <div class="item-meta">Fantasy Football Players of Bangladesh</div>
+        </div>
+
+        <div class="community-item">
+          <div class="item-title">Founding Member</div>
+          <div class="item-meta">Chelsea Football Club Bangladesh Supporters Club - Official</div>
+        </div>
+
+        <div class="community-item">
+          <div class="item-title">Contributor</div>
+          <div class="item-meta">Govt. portal www.corona.gov.bd during COVID-19</div>
+        </div>
+
+        <div class="community-item">
+          <div class="item-title">Interests</div>
+          <div class="item-meta">Football, Drone Videography, TV Series, Human Behaviour, Geography, History, Travel</div>
+        </div>
+      </section>
+
+      <section id="contact" class="page">
+        <div class="section-title">Contact</div>
+        <div class="section-subtitle">Professional contact information</div>
+
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>📞 Phone</strong>
+            <div class="item-text">+61 435 911 737</div>
+          </div>
+
+          <div class="contact-item">
+            <strong>📩 Email</strong>
+            <div class="item-text">hamza.nsu@gmail.com</div>
+          </div>
+
+          <div class="contact-item">
+            <strong>📍 Location</strong>
+            <div class="item-text">Dundas Valley, NSW 2117</div>
+          </div>
+
+          <div class="contact-item">
+            <strong>🔗 LinkedIn</strong>
+            <div class="item-text"><a href="https://linkedin.com/in/hamza-alim" target="_blank">linkedin.com/in/hamza-alim</a></div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          © 2026 Hamza Ibn Alim. All rights reserved.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function showPage(pageId, clickedBtn) {
+      var pages = document.querySelectorAll('.page');
+      for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+      }
+      document.getElementById(pageId).classList.add('active');
+
+      var buttons = document.querySelectorAll('.nav-btn');
+      for (var j = 0; j < buttons.length; j++) {
+        buttons[j].classList.remove('active');
+      }
+      clickedBtn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
